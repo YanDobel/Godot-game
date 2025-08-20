@@ -1,0 +1,63 @@
+[gd_scene load_steps=11 format=3 uid="uid://on7pk46qar80"]
+
+[ext_resource type="Texture2D" uid="uid://cyi42gjl2lf0m" path="res://Material Freeway/galinha/baixo/sprite_0.png" id="1_jx05c"]
+[ext_resource type="Script" uid="uid://butsplv1n0oy0" path="res://Cenas/player.gd" id="1_yuqgu"]
+[ext_resource type="Texture2D" uid="uid://bn46kggrxgpl7" path="res://Material Freeway/galinha/baixo/sprite_1.png" id="2_8vhvd"]
+[ext_resource type="Texture2D" uid="uid://bnhpkmi17k7j1" path="res://Material Freeway/galinha/baixo/sprite_2.png" id="3_e2nbm"]
+[ext_resource type="Texture2D" uid="uid://cd0yvycrhtq7s" path="res://Material Freeway/galinha/cima/sprite_0.png" id="4_ybr15"]
+[ext_resource type="Texture2D" uid="uid://c3htdg8ykw6fn" path="res://Material Freeway/galinha/cima/sprite_1.png" id="5_4q8k4"]
+[ext_resource type="AudioStream" uid="uid://jq2ih4a0a8jl" path="res://Material Freeway/sons/colide.wav" id="5_ybr15"]
+[ext_resource type="Texture2D" uid="uid://dt8inemhsgl28" path="res://Material Freeway/galinha/cima/sprite_2.png" id="6_2enhl"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yk6xx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_jx05c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_8vhvd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_e2nbm")
+}],
+"loop": true,
+"name": &"baixo",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_ybr15")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_4q8k4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_2enhl")
+}],
+"loop": true,
+"name": &"cima",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ruciq"]
+radius = 50.0
+
+[node name="Player" type="Area2D"]
+scale = Vector2(0.3, 0.3)
+script = ExtResource("1_yuqgu")
+
+[node name="Animacao" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 0)
+scale = Vector2(1, 0.979)
+sprite_frames = SubResource("SpriteFrames_yk6xx")
+animation = &"baixo"
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 6.66667)
+shape = SubResource("CircleShape2D_ruciq")
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_ybr15")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
